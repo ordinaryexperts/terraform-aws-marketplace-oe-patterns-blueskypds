@@ -86,12 +86,20 @@ variable "ses_instance_user_access_key_serial" {
 
 variable "notification_topic_email" {
   type        = string
+  default     = ""
   description = "Optional: Specify an email address to get emails about stack events."
 }
 
 variable "notification_topic_arn" {
   type        = string
+  default     = ""
   description = "Optional: Specify an ARN of an existing SNS topic to use for stack notifications."
+}
+
+variable "stack_name" {
+  type        = string
+  description = "Name of the CloudFormation stack"
+  default     = "oe-patterns-blueskypds"
 }
 
 variable "vpc_cidr" {

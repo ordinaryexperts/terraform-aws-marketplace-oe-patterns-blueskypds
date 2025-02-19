@@ -28,6 +28,16 @@ output "dns_site_url_output" {
   value       = aws_cloudformation_stack.oe_patterns_blueskypds.outputs["DnsSiteUrlOutput"]
 }
 
+output "notification_topic_arn_output" {
+  description = "The notification topic ARN."
+  value       = aws_cloudformation_stack.oe_patterns_blueskypds.outputs["NotificationTopicArnOutput"]
+}
+
+output "asg_data_volume_backup_vault_arn_output" {
+  description = "The data volume AWS Backup Vault ARN."
+  value       = aws_cloudformation_stack.oe_patterns_blueskypds.outputs["AsgDataVolumeBackupVaultArnOutput"]
+}
+
 output "first_use_instructions" {
   description = "Instructions for getting started."
   value       = aws_cloudformation_stack.oe_patterns_blueskypds.outputs["FirstUseInstructions"]
