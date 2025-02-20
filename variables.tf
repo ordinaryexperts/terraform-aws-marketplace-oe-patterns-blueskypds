@@ -1,3 +1,9 @@
+variable "request_crawl_from_bluesky" {
+  description = "Optional: Request that this PDS be crawled by Bluesky network"
+  type        = string
+  default     = "true"
+}
+
 variable "alb_certificate_arn" {
   description = "Required: Specify the ARN of a ACM Certificate to configure HTTPS."
   type        = string
@@ -8,10 +14,14 @@ variable "alb_ingress_cidr" {
   type        = string
 }
 
-variable "asg_desired_capacity" {
-  description = "Required: The desired capacity of the Auto Scaling Group."
-  type        = number
-  default     = 1
+variable "dns_hostname" {
+  type        = string
+  description = "Required: The hostname to access the service."
+}
+
+variable "dns_route53_hosted_zone_name" {
+  type        = string
+  description = "Required: Route 53 Hosted Zone name. Must already exist and match the domain part of the Hostname parameter, without trailing dot."
 }
 
 variable "asg_instance_type" {
@@ -26,56 +36,64 @@ variable "asg_key_name" {
   default     = ""
 }
 
-variable "asg_max_size" {
-  description = "Required: The maximum size of the Auto Scaling Group."
-  type        = number
-  default     = 2
-}
-
-variable "asg_min_size" {
-  description = "Required: The minimum size of the Auto Scaling Group."
-  type        = number
-  default     = 1
-}
-
 variable "asg_reprovision_string" {
   description = "Optional: Changes to this parameter will force instance reprovision on the next CloudFormation update."
   type        = string
   default     = ""
 }
 
-variable "assets_bucket_name" {
+variable "asg_disk_usage_alarm_threshold" {
+  description = "Required: The alarm threshold for disk usage percentage."
+  type        = number
+  default     = 80
+}
+
+variable "asg_data_volume_size" {
+  description = "Required: Size of EBS data volume in GiBs."
+  type        = number
+  default     = 100
+}
+
+variable "asg_data_volume_snapshot" {
+  description = "Optional: An EBS snapshot id to restore as a starting point for the data volume."
   type        = string
   default     = ""
-  description = "Optional: Name of the S3 bucket to store uploaded assets. If not specified, a bucket will be created."
 }
 
-variable "custom_config_js_parameter_arn" {
+variable "asg_data_volume_backup_retention_period" {
+  description = "Required: The number of nightly EBS snapshots to retain."
+  type        = number
+  default     = 7
+}
+
+variable "asg_data_volume_backup_vault_arn" {
+  description = "Optional: An AWS Backup Vault ARN to use for storing EBS backups. If not specified, a vault will be created."
   type        = string
   default     = ""
-  description = "Optional: ARN of SSM Parameter Store Secure String containing custom code to populate custom-config.js"
 }
 
-variable "custom_dot_env_parameter_arn" {
+variable "ses_create_domain_identity" {
+  description = "Optional: If 'true', a SES Domain Identity will be created from the hosted zone."
+  type        = string
+  default     = "true"
+}
+
+variable "ses_instance_user_access_key_serial" {
+  description = "Optional: Incrementing this integer value will trigger a rotation of the Instance User Access Key."
+  type        = number
+  default     = 1
+}
+
+variable "notification_topic_email" {
   type        = string
   default     = ""
-  description = "Optional: ARN of SSM Parameter Store Secure String containing custom config to append to the auto-generated .env"
+  description = "Optional: Specify an email address to get emails about stack events."
 }
 
-variable "custom_interface_config_js_parameter_arn" {
+variable "notification_topic_arn" {
   type        = string
   default     = ""
-  description = "Optional: ARN of SSM Parameter Store Secure String containing custom code to populate custom-interface-config.js"
-}
-
-variable "dns_hostname" {
-  type        = string
-  description = "Required: The hostname to access the service."
-}
-
-variable "dns_route53_hosted_zone_name" {
-  type        = string
-  description = "Required: Route 53 Hosted Zone name. Must already exist and match the domain part of the Hostname parameter, without trailing dot."
+  description = "Optional: Specify an ARN of an existing SNS topic to use for stack notifications."
 }
 
 variable "stack_name" {
@@ -98,7 +116,7 @@ variable "vpc_id" {
 
 variable "vpc_nat_gateway_per_subnet" {
   type        = string
-  default     = false
+  default     = "false"
   description = "Optional: Set to 'true' to provision a NAT Gateway in each public subnet for AZ HA."
 }
 

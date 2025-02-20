@@ -11,7 +11,7 @@ terraform {
 resource "aws_cloudformation_stack" "oe_patterns_blueskypds" {
   name = var.stack_name
 
-  template_url = ""
+  template_url = "https://s3.amazonaws.com/awsmp-fulfillment-cf-templates-prod/prod-ufpvcz32f2pdq/2c0ea4c290934e43ba06b67be68f67e2.template"
 
   capabilities = ["CAPABILITY_NAMED_IAM"]
 
@@ -22,30 +22,33 @@ resource "aws_cloudformation_stack" "oe_patterns_blueskypds" {
   }
 
   parameters = {
-    AlbCertificateArn                   = var.alb_certificate_arn
-    AlbIngressCidr                      = var.alb_ingress_cidr
-    AsgDesiredCapacity                  = var.asg_desired_capacity
-    AsgInstanceType                     = var.asg_instance_type
-    AsgKeyName                          = var.asg_key_name
-    AsgMaxSize                          = var.asg_max_size
-    AsgMinSize                          = var.asg_min_size
-    AsgReprovisionString                = var.asg_reprovision_string
-    AssetsBucketName                    = var.assets_bucket_name
-    CustomConfigJsParameterArn          = var.custom_config_js_parameter_arn
-    CustomDotEnvParameterArn            = var.custom_dot_env_parameter_arn
-    CustomInterfaceConfigJsParameterArn = var.custom_interface_config_js_parameter_arn
-    DnsHostname                         = var.dns_hostname
-    DnsRoute53HostedZoneName            = var.dns_route53_hosted_zone_name
-    VpcCidr                             = var.vpc_cidr
-    VpcId                               = var.vpc_id
-    VpcNatGatewayPerSubnet              = var.vpc_nat_gateway_per_subnet
-    VpcPrivateSubnet1Cidr               = var.vpc_private_subnet1_cidr
-    VpcPrivateSubnet1Id                 = var.vpc_private_subnet1_id
-    VpcPrivateSubnet2Cidr               = var.vpc_private_subnet2_cidr
-    VpcPrivateSubnet2Id                 = var.vpc_private_subnet2_id
-    VpcPublicSubnet1Cidr                = var.vpc_public_subnet1_cidr
-    VpcPublicSubnet1Id                  = var.vpc_public_subnet1_id
-    VpcPublicSubnet2Cidr                = var.vpc_public_subnet2_cidr
-    VpcPublicSubnet2Id                  = var.vpc_public_subnet2_id
+    AlbCertificateArn                  = var.alb_certificate_arn
+    AlbIngressCidr                     = var.alb_ingress_cidr
+    AsgDataVolumeBackupRetentionPeriod = var.asg_data_volume_backup_retention_period
+    AsgDataVolumeBackupVaultArn        = var.asg_data_volume_backup_vault_arn
+    AsgDataVolumeSize                  = var.asg_data_volume_size
+    AsgDataVolumeSnapshot              = var.asg_data_volume_snapshot
+    AsgDiskUsageAlarmThreshold         = var.asg_disk_usage_alarm_threshold
+    AsgInstanceType                    = var.asg_instance_type
+    AsgKeyName                         = var.asg_key_name
+    AsgReprovisionString               = var.asg_reprovision_string
+    DnsHostname                        = var.dns_hostname
+    DnsRoute53HostedZoneName           = var.dns_route53_hosted_zone_name
+    NotificationTopicArn               = var.notification_topic_arn
+    NotificationTopicEmail             = var.notification_topic_email
+    RequestCrawlFromBluesky            = var.request_crawl_from_bluesky
+    SesCreateDomainIdentity            = var.ses_create_domain_identity
+    SesInstanceUserAccessKeySerial     = var.ses_instance_user_access_key_serial
+    VpcCidr                            = var.vpc_cidr
+    VpcId                              = var.vpc_id
+    VpcNatGatewayPerSubnet             = var.vpc_nat_gateway_per_subnet
+    VpcPrivateSubnet1Cidr              = var.vpc_private_subnet1_cidr
+    VpcPrivateSubnet1Id                = var.vpc_private_subnet1_id
+    VpcPrivateSubnet2Cidr              = var.vpc_private_subnet2_cidr
+    VpcPrivateSubnet2Id                = var.vpc_private_subnet2_id
+    VpcPublicSubnet1Cidr               = var.vpc_public_subnet1_cidr
+    VpcPublicSubnet1Id                 = var.vpc_public_subnet1_id
+    VpcPublicSubnet2Cidr               = var.vpc_public_subnet2_cidr
+    VpcPublicSubnet2Id                 = var.vpc_public_subnet2_id
   }
 }
