@@ -11,7 +11,7 @@ terraform {
 resource "aws_cloudformation_stack" "oe_patterns_blueskypds" {
   name = var.stack_name
 
-  template_url = "https://awsmp-cft-053155443450-1579814207723.s3.us-east-1.amazonaws.com/7c8c28e7-37a6-4d01-9a75-e19e96b03e04/7c8c28e7-37a6-4d01-9a75-e19e96b03e04/template.yaml"
+  template_url = "https://awsmp-cft-053155443450-1579814207723.s3.us-east-1.amazonaws.com/df0c6413-8588-4860-9cf2-dee9d9e19bf4/df0c6413-8588-4860-9cf2-dee9d9e19bf4/template.yaml"
 
   capabilities = ["CAPABILITY_NAMED_IAM"]
 
